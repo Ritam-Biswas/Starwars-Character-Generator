@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    body{
+        background-image:url("https://s3.amazonaws.com/static.rogerebert.com/uploads/collection/primary_image/the-history-of-star-wars-movies/hero_the-history-of-star-wars-movies.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .heading{
+        background-image: radial-gradient(circle, #e6e7e8, #d4d4d5, #c2c2c2, #b0b0b0, #9e9e9e);
+        background-color: white;
+        text-align: center;
+        margin: -1%;
+        padding: 15px;
+        text-transform: uppercase;
+        text-decoration: solid;
+        font-family: sans-serif;
+        font-size: 70px;
+        text-shadow: 0px 5px 10px black;
+        border-bottom: 5px solid
+    }
+    h2{ 
+        padding: 10px;
+        margin-top: 25px;
+        display: inline-block;
+    }
+    h4, h2{
+        color: white;
+        background-color: rgba(0,0,0,0.4);
+        border-bottom-style: solid;
+}
+    h4{
+        display: inline-block;
+        padding: 2px;
+    }
+    h3{
+        color: white;
+        background-color: rgba(0,0,0,0.4);
+        border-bottom-style: solid;
+        padding: 5px;
+        margin-top: 10px;
+    }
+    img{
+        display: block;
+    }
+</style>
+<body>
+    <h1 class="heading">Welcome to Starwars Family</h1>
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="target">
+            <h4>Select a number(1-89)</h4>
+            <input autofocus type="number" min="1" max="89" style="width: 50%; text-align: center;">
+            <button>Submit</button>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           $("button").on("click",function(){
+               $("img , h2, h3").hide()
+               for(i=1;i<=1;i++){
+                    const check = $("input").val()
+                    if(check>89){
+                        $(".target").after("<h3>Enter a number between 1-89</h3>")
+                    }
+                    const url = `https://akabab.github.io/starwars-api/api/id/${check}.json`
+                    $.get(url,function(data){
+                            const name = data['name']
+                            const image = data['image']
+                            $(".target")
+                                .after(`<img src="${image}">`)
+                                .after(`<h2>Name : ${name}</h2>`)
+                            $("img").css({height:'350px'})
+                    })
+               }
+           })
+           $("input").on("keyup",function(e){
+               if(e.key=='Enter'){
+                    $("img , h2, h3").hide()
+                    for(i=1;i<=1;i++){
+                            const check = $("input").val()
+                            if(check>89){
+                                $(".target").after("<h3>Enter a number between 1-89</h3>")
+                            }
+                            const url = `https://akabab.github.io/starwars-api/api/id/${check}.json`
+                            $.get(url,function(data){
+                                    const name = data['name']
+                                    const image = data['image']
+                                    $(".target")
+                                        .after(`<img src="${image}">`)
+                                        .after(`<h2>Name : ${name}</h2>`)
+                                    $("img").css({height:'350px'})
+                            })
+                    }
+               }
+           })
+        })
+    </script>
+</body>
+</html>
